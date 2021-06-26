@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sonampa';
+  chartData;
+  sendChartData(event: object): void {
+    this.chartData = event;
+  }
 }
