@@ -81,17 +81,17 @@ export class MapViewComponent implements OnInit {
           lng: el.location._long
         },
         label: {
-          text: 'disease',
+          text: `${el.disease.crop}`,
           color: 'white'
         },
-        info: `<img src="${el.image}" alt="image">`,
+        info: `<img src=${el.image} width="200px"><br>crop: ${el.disease.crop}<br>disease: ${el.disease.disease}<br> uploaded by: ${el.user.name}<br> phone: ${el.user.phone}`,
         title: 'disease'
       };
       finalizedArr.push(obj);
     });
     return finalizedArr;
   }
-  // disease: ${el.disease} uploaded by: ${el.user.name} phone: ${el.user.phone}
+
   zoomIn(): void {
     if (this.zoom < this.options.maxZoom) {
       this.zoom++;

@@ -19,7 +19,7 @@
       >
       </map-marker>
 
-      <map-info-window>{{ infoContent }}</map-info-window>
+      <map-info-window [innerHTML]="infoContent">{{ infoContent }}</map-info-window>
     </google-map>
   </div>
   <button (click)="zoomIn()">Zoom in</button>
