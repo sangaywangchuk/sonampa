@@ -1,1 +1,31 @@
-<app-map-view></app-map-view>
+<div class="container">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <img src="./assets/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        Admin
+      </div>
+    </div>
+  </div>
+    <div class="tabs is-centered">
+      <ul>
+        <li [ngClass]="isActive() === '/' ? 'is-active'  : ''">
+          <a>
+            <span class="icon is-small"><i class="fas fa-chart-area"></i></span>
+            <span>Graph</span>
+          </a>
+        </li>
+        <li [ngClass]="isActive() === '/map' ? 'is-active'  : ''">
+          <a routerLink="/map">
+            <span class="icon is-small"><i class="fas fa-map-marked-alt"></i></span>
+            <span>Map</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <router-outlet></router-outlet>
+</div>
