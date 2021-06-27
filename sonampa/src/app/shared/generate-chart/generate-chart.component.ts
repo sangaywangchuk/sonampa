@@ -38,4 +38,8 @@ export class GenerateChartComponent implements OnInit {
       }
     });
   }
+
+  changeChartType(value: string): void {
+    this.chartType = value;
+  }
 }
