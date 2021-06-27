@@ -9,6 +9,7 @@ import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'sonampa';
 
+
   constructor(private router: Router) {
   }
 
