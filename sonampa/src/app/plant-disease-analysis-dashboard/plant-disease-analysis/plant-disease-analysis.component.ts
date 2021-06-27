@@ -63,8 +63,8 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   onSelectPlant(item: string): void {
     this.diseaseType = [];
     this.diseaseType = plantDiseaseType[item];
-    this.filteredDataByPlantName.length = 0;
     console.log('length', this.filteredDataByPlantName.length );
+    this.filteredDataByPlantName.length = 0;
     this.filteredDataByPlantName = this.plantDiseaseData.filter(res => {
       return (res.disease.crop === item);
     });
@@ -74,7 +74,9 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
       ...acc,
       [value.dzongkhag]: (acc[value.dzongkhag] || 0) + 1
     }), {});
-    console.log('count', this.counts);
+    this.chartData.data.length = 0;
+    this.chartLabel.length = 0;
+    this.chartData.label = '';
     this.dzongkhag.forEach(dzongkhag => {
       this.chartData.data.push(this.counts[dzongkhag]);
       this.chartLabel.push(dzongkhag);
@@ -98,8 +100,6 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
     this.chartData.data = [];
     this.chartLabel = [];
     this.diseaseType.forEach(disease => {
-      debugger
-      console.log(this.counts[disease]);
       this.chartData.data.push(this.counts[disease]);
       this.chartLabel.push(disease);
     });
@@ -115,6 +115,5 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
     this.filteredDataByPlantName = this.plantDiseaseData.filter(res => {
       return (res.dzongkhag === value);
     });
-    console.log('dzongkha ', this.filteredDataByPlantName);
   }
 }
