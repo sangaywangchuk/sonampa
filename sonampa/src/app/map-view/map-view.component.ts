@@ -55,9 +55,7 @@ export class MapViewComponent implements OnInit {
   constructor(private firebase: AngularFirestore) {
     const things = firebase.collection('diseases').valueChanges();
     things.subscribe((resp: Interface[]) => {
-      const hel = this.serialize(resp);
-      this.markers = hel;
-      console.log(hel);
+      this.markers = this.serialize(resp);
       // this.markers = resp
     });
   }
@@ -74,8 +72,8 @@ export class MapViewComponent implements OnInit {
 
   serialize(data: Interface[]): Marker[] {
     const finalizedArr: Marker[] = [];
-    data.forEach(el => {
-      const obj: Marker = {
+    data.forEach((el, i) => {
+      let obj: Marker = {
         position: {
           lat: el.location._lat,
           lng: el.location._long
@@ -87,8 +85,16 @@ export class MapViewComponent implements OnInit {
         info: `<img src=${el.image} width="200px"><br>crop: ${el.disease.crop}<br>disease: ${el.disease.disease}<br> uploaded by: ${el.user.name}<br> phone: ${el.user.phone}`,
         title: 'disease'
       };
+      if (i === data.length - 1) {
+        obj = {
+          ...obj, options: {
+            animation: google.maps.Animation.BOUNCE
+          }
+        };
+      }
       finalizedArr.push(obj);
     });
+
     return finalizedArr;
   }
 
