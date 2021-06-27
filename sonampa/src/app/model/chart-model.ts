@@ -699,10 +699,10 @@ export const plantDiseaseData = [
       lat: '38.8951',
       lon: '-77.0364'
     },
-    dzongkhag: 'paro',
+    dzongkhag: 'thimphu',
     disease: {
       crop: 'Rice',
-      diseaseName: 'Leaf smut'
+      diseaseName: 'Brown '
     },
     user: {
       name: 'Rinzin Wangchuk',
@@ -773,6 +773,6 @@ export const plantDiseaseType = {
   Maize: ['Cercospora leaf spot gray leaf spot', 'Common rust', 'orthern leaf blight'],
   Orange: ['Haunglongbing (citrus greening)'],
   Peach: ['Bacterial spot'],
-  Potato: ['Early blight', 'Late blight', 'Healthy'],
+  Potato: ['Early blight', 'Late blight'],
   Rice: ['Bacterial leaf blight', 'Brown spot', 'Leaf smut']
 };

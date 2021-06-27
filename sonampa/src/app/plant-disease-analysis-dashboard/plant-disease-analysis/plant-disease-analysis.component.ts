@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataServiceService} from '../../service/data-service/data-service.service';
-import {ChartModel, plantDiseaseData, PlantDiseaseData, plantDiseaseType} from '../../model/chart-model';
+import { plantDiseaseData, PlantDiseaseData, plantDiseaseType} from '../../model/chart-model';
 
 
 @Component({
@@ -37,6 +37,15 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   diseaseStatus = false;
   counts = {};
   chartLabel = [];
+  dzongkhagList = [
+    'mongar',
+    'thimphu',
+    'tashigang',
+    'haa',
+    'paro',
+    'trongsa',
+
+  ];
   constructor(private dataService: DataServiceService) {
   }
 
@@ -48,7 +57,6 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   }
 
   onSelectPlant(item: string): void {
-    this.diseaseStatus = true;
     this.diseaseType = [];
     this.diseaseType = plantDiseaseType[item];
     this.filteredDataByPlantName = [];
@@ -61,9 +69,7 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
       ...acc,
       [value.dzongkhag]: (acc[value.dzongkhag] || 0) + 1
     }), {});
-    console.log(this.counts);
     this.dzongkhag.forEach(dzongkhag => {
-      console.log(dzongkhag);
       this.chartData.data.push(this.counts[dzongkhag] || 0);
       this.chartLabel.push(dzongkhag);
     });
@@ -72,15 +78,36 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   }
 
 
-  onSelectDisease(value: string): void {
+  onSelectCrop(value: string): void {
+    let cropList = this.filteredDataByPlantName;
+    cropList = cropList.filter(res => {
+      return (res.disease.crop === value);
+    });
+    this.counts = {};
+    this.counts = cropList.reduce((acc, data) => ({
+      ...acc,
+      [data.disease.diseaseName]: (acc[data.disease.diseaseName] || 0) + 1
+    }), {});
+    console.log('disease: ', this.counts);
+    this.diseaseType = plantDiseaseType[value];
+    this.chartData.data = [];
+    this.chartLabel = [];
+    this.diseaseType.forEach(disease => {
+      this.chartData.data.push(this.counts[disease] || 0);
+      this.chartLabel.push(disease);
+    });
+    this.chartData.label = value;
+    this.dataService.setChartDataInfo({label: this.chartLabel, dataset: this.chartData});
+
   }
 
-  generateChartData(filteredDataByPlantName: PlantDiseaseData[]): ChartModel {
-    const counts = filteredDataByPlantName.reduce((acc, value) => ({
-      ...acc,
-      [value.dzongkhag]: (acc[value.dzongkhag] || 0) + 1
-    }), {});
-    console.log(counts);
-    return {chartData: undefined, chartLabels: [], chartLegend: false, chartOptions: undefined, chartType: 'bar'};
+  onSelectDzongkha(value: string): void {
+    this.diseaseStatus = true;
+    console.log(this.plantList);
+    this.filteredDataByPlantName.length = 0;
+    this.filteredDataByPlantName = this.plantDiseaseData.filter(res => {
+      return (res.dzongkhag === value);
+    });
+    console.log('dzongkha ', this.filteredDataByPlantName);
   }
 }

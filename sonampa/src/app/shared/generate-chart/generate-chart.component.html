@@ -6,6 +6,11 @@
           [labels]="chartLabels"
           [options]="chartOptions"
           [legend]="chartLegend"
-          chartType="{{chartType}}">
+          [chartType]="chartType">
   </canvas>
+</div>
+<div>
+  <button (click)="changeChartType('bar')">bar</button>
+  <button (click)="changeChartType('pie')">pie</button>
+  <button (click)="changeChartType('line')">line</button>
 </div>
