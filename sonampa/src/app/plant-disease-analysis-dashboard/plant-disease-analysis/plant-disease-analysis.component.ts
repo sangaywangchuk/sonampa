@@ -55,6 +55,19 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.plantDiseaseData = plantDiseaseData;
+    this.counts = this.plantDiseaseData.reduce((acc, value) => ({
+      ...acc,
+      [value.dzongkhag]: (acc[value.dzongkhag] || 0) + 1
+    }), {});
+    console.log(this.counts);
+
+    this.dzongkhag.forEach(dzongkhag => {
+        this.chartData.data.push(this.counts[dzongkhag]);
+        this.chartLabel.push(dzongkhag);
+      });
+    console.log(this.chartData.data, this.chartLabel);
+    this.chartData.label = 'disease';
+    this.dataService.setChartDataInfo({label: this.chartLabel, dataset: this.chartData});
   }
 
   onSelectCategory(item: string): void {
@@ -63,7 +76,6 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   onSelectPlant(item: string): void {
     this.diseaseType = [];
     this.diseaseType = plantDiseaseType[item];
-    console.log('length', this.filteredDataByPlantName.length );
     this.filteredDataByPlantName.length = 0;
     this.filteredDataByPlantName = this.plantDiseaseData.filter(res => {
       return (res.disease.crop === item);
