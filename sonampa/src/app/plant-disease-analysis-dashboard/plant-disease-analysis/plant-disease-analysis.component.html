@@ -1,39 +1,65 @@
 <div class="container">
   <div class='topic'>
-    <h3>Plant Disease Analysis</h3>
+    <h3 class="title">Plant Disease Analysis</h3>
   </div>
 
   <div class="analysis-category">
     <div class="sub-topic">
-      <h4>Analysis Category</h4>
+      <h4 class="subtitle">Analysis Category</h4>
     </div>
 
-    <div class="category">
-      <div class="category-item" *ngFor="let item of analysisTypes" (click)="onSelectCategory(item)">
-        {{item}}
-      </div>
+    <div class="section">
+      <div class="columns">
+        <div class="column">
+          <div class="category">
+            <!--      <div class="category-item" *ngFor="let item of analysisTypes" (click)="onSelectCategory(item)">-->
+            <!--        {{item}}-->
+            <!--      </div>-->
 
-      <div class="configuration">
-        <div class="plant">
-          <div class="plant-container">
-            <div class="plant-title">
-              <h4>Plant</h4>
+            <div class="configuration">
+              <div class="plant">
+                <div class="field">
+                  <div class="label">
+                    <h4>Plant</h4>
+                  </div>
+                  <div class="control">
+                    <div class="select">
+                      <select class="plants-type" #plant (change)="onSelectPlant(plant.value)">
+                        <option class="disease-type" *ngFor="let plant of plantList" [value]="plant">
+                          {{plant}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="disease-type-container" *ngIf="diseaseStatus">
+                  <div class="field">
+                    <div class="label">
+                      <h4>Disease Type</h4>
+                    </div>
+                    <div class="control">
+                      <div class="select">
+                        <select class="plants-type" #disease (change)="onSelectDisease(disease.value)">
+                          <option class="disease-type" *ngFor="let plant of diseaseType" [value]="plant">
+                            {{plant}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <select class="plants-type" #plant (change)="onSelectPlant(plant.value)">
-              <option class="disease-type" *ngFor="let plant of plantList" [value]="plant">
-                {{plant}}
-              </option>
-            </select>
           </div>
-          <div class="disease-type-container" *ngIf="diseaseStatus">
-            <div class="disease-title">
-              <h4>Disease Type</h4>
-            </div>
-            <select class="plants-type" #disease (change)="onSelectDisease(disease.value)">
-              <option class="disease-type" *ngFor="let plant of diseaseType" [value]="plant">
-                {{plant}}
-              </option>
-            </select>
+        </div>
+        <div class="column">
+          <div class="tile is-parent">
+            <article class="tile is-child notification">
+<!--              <p class="title"><span class="icon is-small"><i class="fas fa-chart-area"></i></span> Graph</p>-->
+              <div class="content">
+                <app-generate-chart></app-generate-chart>
+              </div>
+            </article>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DataServiceService} from '../../service/data-service/data-service.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {distinctUntilChanged} from "rxjs/operators";
+import {distinctUntilChanged} from 'rxjs/operators';
 @UntilDestroy()
 @Component({
   selector: 'app-generate-chart',

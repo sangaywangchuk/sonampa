@@ -22,41 +22,12 @@ export class MapViewComponent implements OnInit {
     minZoom: 8,
   };
   markers: Marker[] = [];
-  //   {
-  //     position: {
-  //       lat: 27.5142,
-  //       lng: 90.4336
-  //     },
-  //     label: {
-  //       text: 'Thimphu',
-  //       color: 'red'
-  //     },
-  //     info: 'A man died',
-  //     title: 'Hello',
-  //     options: {
-  //       animation: google.maps.Animation.BOUNCE
-  //     }
-  //   },
-  //   {
-  //     position: {
-  //       lat: 27.6142,
-  //       lng: 90.3336
-  //     },
-  //     label: {
-  //       text: 'Gasa',
-  //       color: 'green'
-  //     },
-  //     info: 'A man killed a man',
-  //     title: 'lingling',
-  //   }
-  // ];
   infoContent = '';
 
   constructor(private firebase: AngularFirestore) {
     const things = firebase.collection('diseases').valueChanges();
     things.subscribe((resp: Interface[]) => {
       this.markers = this.serialize(resp);
-      // this.markers = resp
     });
   }
 
@@ -73,7 +44,7 @@ export class MapViewComponent implements OnInit {
   serialize(data: Interface[]): Marker[] {
     const finalizedArr: Marker[] = [];
     data.forEach((el, i) => {
-      let obj: Marker = {
+      const obj: Marker = {
         position: {
           lat: el.location._lat,
           lng: el.location._long
@@ -85,13 +56,6 @@ export class MapViewComponent implements OnInit {
         info: `<img src=${el.image} width="200px"><br>crop: ${el.disease.crop}<br>disease: ${el.disease.disease}<br> uploaded by: ${el.user.name}<br> phone: ${el.user.phone}`,
         title: 'disease'
       };
-      if (i === data.length - 1) {
-        obj = {
-          ...obj, options: {
-            animation: google.maps.Animation.BOUNCE
-          }
-        };
-      }
       finalizedArr.push(obj);
     });
 
