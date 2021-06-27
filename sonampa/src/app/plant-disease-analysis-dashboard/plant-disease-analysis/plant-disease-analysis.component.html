@@ -33,28 +33,31 @@
                   </div>
                 </div>
                 <div class="dzongkhag">
-                  <div class="dzongkhag">
-                    <div class="dzongkhag">
-                      <h4>Dzongkhag</h4>
-                    </div>
-                    <select class="plants-type" #dzongkhags (change)="onSelectDzongkha(dzongkhags.value)">
-                      <option class="disease-type" *ngFor="let dzongkhag of dzongkhagList" [value]="dzongkhag">
-                        {{dzongkhag}}
-                      </option>
-                    </select>
-                  </div>
-                <div class="disease-type-container" *ngIf="diseaseStatus">
                   <div class="field">
                     <div class="label">
-                      <h4>Crop</h4>
+                      <h4>Dzongkhag</h4>
                     </div>
-                    <div class="control">
-                      <div class="select">
-                        <select class="plants-type" #disease (change)="onSelectCrop(disease.value)">
-                          <option class="disease-type" *ngFor="let plant of plantList" [value]="plant">
-                            {{plant}}
-                          </option>
-                        </select>
+                    <div class="select">
+                      <select class="plants-type" #dzongkhags (change)="onSelectDzongkha(dzongkhags.value)">
+                        <option class="disease-type" *ngFor="let dzongkhag of dzongkhagList" [value]="dzongkhag">
+                          {{dzongkhag}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="disease-type-container" *ngIf="diseaseStatus">
+                    <div class="field">
+                      <div class="label">
+                        <h4>Crop</h4>
+                      </div>
+                      <div class="control">
+                        <div class="select">
+                          <select class="plants-type" #disease (change)="onSelectCrop(disease.value)">
+                            <option class="disease-type" *ngFor="let plant of plantList" [value]="plant">
+                              {{plant}}
+                            </option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -66,7 +69,7 @@
         <div class="column">
           <div class="tile is-parent">
             <article class="tile is-child notification">
-<!--              <p class="title"><span class="icon is-small"><i class="fas fa-chart-area"></i></span> Graph</p>-->
+              <!--              <p class="title"><span class="icon is-small"><i class="fas fa-chart-area"></i></span> Graph</p>-->
               <div class="content">
                 <app-generate-chart></app-generate-chart>
               </div>
