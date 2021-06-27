@@ -12,25 +12,22 @@ export class GenerateChartComponent implements OnInit {
   constructor( private dataServiceService: DataServiceService) { }
   public chartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true};
+    responsive: true
+  };
   public chartLabels = [];
   public chartType = 'bar';
   public chartLegend = true;
-  public chartData = [];
+  public chartData = [
+
+  ];
   ngOnInit(): void {
     this.dataServiceService.getChartDataInfo().pipe(untilDestroyed(this), distinctUntilChanged()).subscribe((res) => {
       if (res) {
         this.chartData.length = 0;
         this.chartLabels.length = 0;
-        console.log('res', res.dataset.data);
-        this.chartData = [{...res.dataset}];
-        console.log('sdfasdf', this.chartData);
+        this.chartData.push({data: [...res.dataset.data], label: res.dataset.label});
         this.chartLabels.push(...res.label);
       }
     });
-  }
-
-  changeChartType(value: string): void {
-    this.chartType = value;
   }
 }

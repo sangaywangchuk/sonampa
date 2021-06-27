@@ -24,8 +24,12 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   ];
 
   dzongkhag = [
+    'mongar',
     'thimphu',
+    'tashigang',
+    'haa',
     'paro',
+    'trongsa',
   ];
 
   filteredDataByPlantName: PlantDiseaseData[] = [];
@@ -59,7 +63,8 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
   onSelectPlant(item: string): void {
     this.diseaseType = [];
     this.diseaseType = plantDiseaseType[item];
-    this.filteredDataByPlantName = [];
+    this.filteredDataByPlantName.length = 0;
+    console.log('length', this.filteredDataByPlantName.length );
     this.filteredDataByPlantName = this.plantDiseaseData.filter(res => {
       return (res.disease.crop === item);
     });
@@ -69,8 +74,9 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
       ...acc,
       [value.dzongkhag]: (acc[value.dzongkhag] || 0) + 1
     }), {});
+    console.log('count', this.counts);
     this.dzongkhag.forEach(dzongkhag => {
-      this.chartData.data.push(this.counts[dzongkhag] || 0);
+      this.chartData.data.push(this.counts[dzongkhag]);
       this.chartLabel.push(dzongkhag);
     });
     this.chartData.label = item;
@@ -88,12 +94,13 @@ export class PlantDiseaseAnalysisComponent implements OnInit {
       ...acc,
       [data.disease.diseaseName]: (acc[data.disease.diseaseName] || 0) + 1
     }), {});
-    console.log('disease: ', this.counts);
     this.diseaseType = plantDiseaseType[value];
     this.chartData.data = [];
     this.chartLabel = [];
     this.diseaseType.forEach(disease => {
-      this.chartData.data.push(this.counts[disease] || 0);
+      debugger
+      console.log(this.counts[disease]);
+      this.chartData.data.push(this.counts[disease]);
       this.chartLabel.push(disease);
     });
     this.chartData.label = value;
